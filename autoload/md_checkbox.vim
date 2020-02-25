@@ -65,7 +65,8 @@ function! s:md_checkbox_create(lnum, line) abort
   if s:md_checkbox_ul_exists(a:line)
     call s:md_checkbox_create_for_ul(a:lnum, a:line)
   else
-    call setline(a:lnum, " * [ ] " . a:line)
+    let str = substitute(a:line, '\v(^\s*)', '\1* [ \] ', "")
+    call setline(a:lnum, str)
   endif
 endfunction
 
