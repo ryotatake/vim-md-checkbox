@@ -50,15 +50,15 @@ function! md_checkbox#toggle_or_create() abort
 endfunction
 
 function! s:md_checkbox_exists(line) abort
-  return match(a:line, '\v^\s*(\*|-) [( |x)\]') != -1
+  return match(a:line, '\v^\s*(\*|-|\+) [( |x)\]') != -1
 endfunction
 
 function! s:md_checkbox_ul_exists(line) abort
-  return match(a:line, '\v(^\s*)(\*|-)') != -1
+  return match(a:line, '\v(^\s*)(\*|-|\+)') != -1
 endfunction
 
 function! s:md_checkbox_checked(line) abort
-  return match(a:line, '\v(^\s*)(\*|-) [x\]') != -1
+  return match(a:line, '\v(^\s*)(\*|-|\+) [x\]') != -1
 endfunction
 
 function! s:md_checkbox_create(lnum, line) abort
@@ -71,16 +71,16 @@ function! s:md_checkbox_create(lnum, line) abort
 endfunction
 
 function! s:md_checkbox_create_for_ul(lnum, line) abort
-  let str = substitute(a:line, '\v(^\s*)(\*|-) =', '\1\2 [ \] ', "")
+  let str = substitute(a:line, '\v(^\s*)(\*|-|\+) =', '\1\2 [ \] ', "")
   call setline(a:lnum, str)
 endfunction
 
 function! s:md_checkbox_check(lnum, line) abort
-  let new_line = substitute(a:line, '\v(^\s*)(\*|-) [ \]', '\1\2 [x\]', "")
+  let new_line = substitute(a:line, '\v(^\s*)(\*|-|\+) [ \]', '\1\2 [x\]', "")
   call setline(a:lnum, new_line)
 endfunction
 
 function! s:md_checkbox_uncheck(lnum, line) abort
-  let new_line = substitute(a:line, '\v(^\s*)(\*|-) [x\]', '\1\2 [ \]', "")
+  let new_line = substitute(a:line, '\v(^\s*)(\*|-|\+) [x\]', '\1\2 [ \]', "")
   call setline(a:lnum, new_line)
 endfunction
